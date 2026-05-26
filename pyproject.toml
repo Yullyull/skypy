@@ -1,0 +1,38 @@
+[project]
+name = "bank-widget"
+version = "0.1.0"
+description = "Bank widget backend"
+authors = [
+    {name = "Student"}
+]
+requires-python = "^3.10"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[dependency-groups]
+lint = [
+    "flake8 (>=7.3.0,<8.0.0)",
+    "black (>=26.5.1,<27.0.0)",
+    "isort (>=8.0.1,<9.0.0)",
+    "mypy (>=2.1.0,<3.0.0)"
+]
+
+[tool.black]
+line-length = 79
+target-version = ["py310"]
+skip-string-normalization = false
+
+[tool.isort]
+profile = "black"
+line_length = 79
+known_first_party = ["src"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+ignore_missing_imports = true
