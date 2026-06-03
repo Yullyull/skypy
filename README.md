@@ -1,45 +1,53 @@
-# Bank Widget Backend
+# Bank Widget
 
-Backend data preparation for a bank client's operations widget.
+Бэкенд для виджета последних банковских операций клиента.
 
-## Project Structure
-
-```
-bank_widget/
-├── src/
-│   ├── __init__.py
-│   ├── masks.py    # Card and account masking functions
-│   └── widget.py   # Widget helper functions
-├── tests/
-│   └── __init__.py
-├── .flake8
-├── .gitignore
-└── pyproject.toml
-```
-
-## Modules
-
-### `src/masks`
-- `get_mask_card_number(card_number)` — masks a 16-digit card as `XXXX XX** **** XXXX`
-- `get_mask_account(account_number)` — masks an account number as `**XXXX`
-
-### `src/widget`
-- `mask_account_card(account_info)` — accepts a combined string like
-  `"Visa Platinum 7000792289606361"` or `"Счет 73654108430135874305"`
-  and returns it with a masked number
-- `get_date(date_string)` — converts `"2024-03-11T02:26:18.671407"` → `"11.03.2024"`
-
-## Setup
+## Установка
 
 ```bash
 poetry install --with lint
 ```
 
-## Linting
+## Модули
+
+### `src/masks` — маскировка номеров
+
+```python
+from src.masks import get_mask_card_number, get_mask_account
+
+get_mask_card_number("7000792289606361")  # "7000 79** **** 6361"
+get_mask_account("73654108430135874305")  # "**4305"
+```
+
+### `src/widget` — виджет операций
+
+```python
+from src.widget import mask_account_card, get_date
+
+mask_account_card("Visa Platinum 7000792289606361")  # "Visa Platinum 7000 79** **** 6361"
+mask_account_card("Счет 73654108430135874305")        # "Счет **4305"
+get_date("2024-03-11T02:26:18.671407")               # "11.03.2024"
+```
+
+### `src/processing` — обработка списка операций
+
+```python
+from src.processing import filter_by_state, sort_by_date
+
+# Фильтрация по статусу (по умолчанию EXECUTED)
+filter_by_state(operations)
+filter_by_state(operations, "CANCELED")
+
+# Сортировка по дате (по умолчанию убывание)
+sort_by_date(operations)
+sort_by_date(operations, reverse=False)
+```
+
+## Линтинг
 
 ```bash
-poetry run black src/ tests/
-poetry run isort src/ tests/
-poetry run flake8 src/ tests/
+poetry run black src/
+poetry run isort src/
+poetry run flake8 src/
 poetry run mypy src/
 ```
