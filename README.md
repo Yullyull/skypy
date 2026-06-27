@@ -67,6 +67,26 @@ for card in card_number_generator(1, 5):
 # 0000 0000 0000 0005
 ```
 
+### `src.decorators` — логирование вызова функций
+
+```python
+from src.decorators import log
+
+# Логирование в консоль
+@log()
+def add(a, b):
+    return a + b
+
+add(1, 2)  # выведет: add ok
+
+# Логирование в файл
+@log(filename="mylog.txt")
+def div(a, b):
+    return a / b
+
+div(10, 0)  # запишет: div error: ZeroDivisionError. Inputs: (10, 0), {}
+```
+
 ## Тестирование
 
 ```bash
