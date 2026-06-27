@@ -18,8 +18,8 @@
 
 ```bash
 # Клонировать репозиторий
-git clone https://github.com/your-username/bank_widget.git
-cd bank_widget
+git clone https://github.com/Yullyull/skypy.git
+cd skypy
 
 # Установить зависимости (включая инструменты линтинга)
 poetry install --with lint
@@ -31,7 +31,7 @@ poetry install --with lint
 
 ```bash
 poetry shell
-# или
+# или одной командой:
 poetry run python -c "from src.masks import get_mask_card_number; print(get_mask_card_number('7000792289606361'))"
 ```
 
@@ -114,7 +114,7 @@ poetry run isort src/ tests/
 ## Структура проекта
 
 ```
-bank_widget/
+skypy/
 ├── src/
 │   ├── __init__.py
 │   ├── masks.py           # Маскировка номеров карт и счетов
