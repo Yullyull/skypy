@@ -43,6 +43,41 @@ sort_by_date(operations)
 sort_by_date(operations, reverse=False)
 ```
 
+### `src.generators` — генераторы для обработки транзакций
+
+```python
+from src.generators import filter_by_currency, transaction_descriptions, card_number_generator
+
+# Фильтрация по валюте (возвращает итератор)
+usd = filter_by_currency(transactions, "USD")
+print(next(usd))  # первая USD-транзакция
+
+# Описания всех операций (генератор)
+descriptions = transaction_descriptions(transactions)
+for desc in descriptions:
+    print(desc)
+
+# Генерация номеров карт в диапазоне
+for card in card_number_generator(1, 5):
+    print(card)
+# 0000 0000 0000 0001
+# 0000 0000 0000 0002
+# 0000 0000 0000 0003
+# 0000 0000 0000 0004
+# 0000 0000 0000 0005
+```
+
+## Тестирование
+
+```bash
+# Запуск всех тестов
+poetry run pytest
+
+# С отчётом о покрытии
+poetry run pytest --cov=src --cov-report=term-missing
+# HTML-отчёт: poetry run pytest --cov=src --cov-report=html
+```
+
 ## Линтинг
 
 ```bash
